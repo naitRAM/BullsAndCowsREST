@@ -9,17 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Rami Mansieh
- * email: rmansieh@gmail.com
- * data: Apr. 22, 2022
- * purpose: 
+ * @author Rami Mansieh email: rmansieh@gmail.com data: Apr. 22, 2022 purpose:
  */
 @Repository
 public class GuessDaoDBImpl implements GuessDao {
-    
+
     @Autowired
     JdbcTemplate jdbct;
 
@@ -35,31 +33,22 @@ public class GuessDaoDBImpl implements GuessDao {
     }
 
     @Override
+    @Transactional
     public Guess addGuess(Guess guess) {
         final String sqlInsert = "INSERT INTO Guess (Time, Value, Result, GameID) values (?,?,?,?);";
-        final String sqlGuessCount = "SELECT * FROM Guess WHERE GameID = ?;";
-    jdbct.update(sqlInsert, Timestamp.valueOf(guess.getTime()), guess.getValue(), guess.getResult(), guess.getGameID());
-        List<Integer> guessesForGame = jdbct.query(sqlGuessCount, new GuessIDMapper(), guess.getGameID());
-        guess.setCount(guessesForGame.size());
+        final String sqlGuessCount = "SELECT COUNT(*) FROM Guess WHERE GameID = ?;";
+        jdbct.update(sqlInsert, Timestamp.valueOf(guess.getTime()), guess.getValue(), guess.getResult(), guess.getGameID());
+        int guessesForGame = jdbct.queryForObject(sqlGuessCount, Integer.class, guess.getGameID());
+        guess.setCount(guessesForGame);
         return guess;
     }
-    
+
     public static final class GuessMapper implements RowMapper<Guess> {
 
         @Override
         public Guess mapRow(ResultSet rs, int i) throws SQLException {
             return new Guess(rs.getTimestamp("Time").toLocalDateTime(), rs.getInt("Value"), rs.getString("Result"), rs.getInt("GameID"));
         }
-        
-    }
-    
-    public static final class GuessIDMapper implements RowMapper<Integer> {
 
-        @Override
-        public Integer mapRow(ResultSet rs, int i) throws SQLException {
-            return rs.getInt("ID");
-        }
-        
     }
-    
 }
