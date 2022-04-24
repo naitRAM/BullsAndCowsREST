@@ -35,6 +35,9 @@ public class GameDaoStubImpl implements GameDao {
 
     @Override
     public Game getGameByID(int id) {
+        if (id != 1) {
+            return null;
+        }
         return daoGame;
     }
 

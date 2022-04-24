@@ -13,4 +13,3 @@ com\sg\ramimans\bullsandcowsrest\App.class
 com\sg\ramimans\bullsandcowsrest\dao\GuessDaoDBImpl$GuessIDMapper.class
 com\sg\ramimans\bullsandcowsrest\dao\GameDaoDBImpl$GameMapper.class
 com\sg\ramimans\bullsandcowsrest\dao\GameDaoDBImpl.class
-com\sg\ramimans\bullsandcowsrest\controller\ToDoControllerExceptionHandler.class

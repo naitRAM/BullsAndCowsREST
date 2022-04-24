@@ -2,7 +2,7 @@ package com.sg.ramimans.bullsandcowsrest.controller;
 
 import com.sg.ramimans.bullsandcowsrest.entity.Game;
 import com.sg.ramimans.bullsandcowsrest.entity.Guess;
-import com.sg.ramimans.bullsandcowsrest.service.BullsAndCowsService;
+import com.sg.ramimans.bullsandcowsrest.service.BullsAndCowsServiceImpl;
 import com.sg.ramimans.bullsandcowsrest.service.InvalidGameException;
 import com.sg.ramimans.bullsandcowsrest.service.InvalidGuessException;
 import java.time.LocalDateTime;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BullsAndCowsController {
 
     @Autowired
-    private BullsAndCowsService service;
+    private BullsAndCowsServiceImpl service;
 
     @PostMapping("/game")
     public Game newGame() {

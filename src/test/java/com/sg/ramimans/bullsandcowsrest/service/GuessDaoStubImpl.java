@@ -22,10 +22,13 @@ public class GuessDaoStubImpl implements GuessDao{
     
     @Override
     public List<Guess> getGuessesByGameID(int id) {
+        if (id == 1) {
         List<Guess> guesses  = new ArrayList<>();
         guesses.add(guess1);
         guesses.add(guess2);
         return guesses;
+        } 
+        return new ArrayList<>();
     }
 
     @Override

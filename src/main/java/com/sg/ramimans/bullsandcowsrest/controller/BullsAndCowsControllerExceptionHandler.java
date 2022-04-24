@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 @RestController
-public class ToDoControllerExceptionHandler extends ResponseEntityExceptionHandler {
+public class BullsAndCowsControllerExceptionHandler extends ResponseEntityExceptionHandler {
     
     private static final String MESSAGE = "Please check your input";
     
