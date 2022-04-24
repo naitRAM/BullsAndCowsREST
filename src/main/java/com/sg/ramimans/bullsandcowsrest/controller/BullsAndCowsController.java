@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,33 +42,19 @@ public class BullsAndCowsController {
     }
 
     @GetMapping("/game/{id}")
-    public ResponseEntity<Game> sendGame(@PathVariable int id) {
-        try {
+    public ResponseEntity<Game> sendGame(@PathVariable int id) throws InvalidGameException {
         return ResponseEntity.ok(obscureAnswer(service.getGame(id)));
-        } catch (InvalidGameException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
     }
 
     @GetMapping("/guesses/{gameID}")
-    public ResponseEntity<List<Guess>> sendGuesses(@PathVariable int gameID) {
-        try {
-            return ResponseEntity.ok(service.getGuessesForGame(gameID));
-        } catch (InvalidGameException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<List<Guess>> sendGuesses(@PathVariable int gameID) throws InvalidGameException {
+        return ResponseEntity.ok(service.getGuessesForGame(gameID));
     }
 
     @PostMapping("/guess")
-    public ResponseEntity<Guess> create(@RequestBody Guess guess) throws InvalidGameException {
+    public ResponseEntity<Guess> create(@RequestBody Guess guess) throws InvalidGameException, InvalidGuessException {
         guess.setTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        try {
-            return ResponseEntity.ok(service.addGuess(guess));
-        } catch (InvalidGuessException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-        } catch (InvalidGameException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.ok(service.addGuess(guess));
     }
 
     private Game obscureAnswer(Game game) {

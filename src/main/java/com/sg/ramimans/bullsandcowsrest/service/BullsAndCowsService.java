@@ -67,7 +67,7 @@ public class BullsAndCowsService {
         int exact = 0;
         int partial = 0;
         if (guessStr.length() != answerStr.length()) {
-            throw new InvalidGuessException(String.format("Error: Guess length (%S) does not match answer length (%S)", guessStr.length(), answerStr.length()));
+            throw new InvalidGuessException(String.format("Error: please provide a 'value' with %S digits", guessStr.length(), answerStr.length()));
         }
         for (int i = 0; i < guessStr.length(); i++) {
             for (int j = 0; j < guessStr.length(); j++) {
@@ -100,14 +100,20 @@ public class BullsAndCowsService {
 
     public Guess addGuess(Guess guess) throws InvalidGuessException, InvalidGameException {
         int gameID = guess.getGameID();
+        if (gameID == 0) {
+            throw new InvalidGuessException("Please provide 'gameID'");
+        }
         Game gameToGuess = gameDao.getGameByID(gameID);
         if (gameToGuess == null) {
-            throw new InvalidGameException("Error: No game exists with Game ID " + gameID);
+            throw new InvalidGameException("No game exists with gameID" + gameID);
         }
         if (gameToGuess.getStatus().equals("FINISHED")) {
-            throw new InvalidGameException("Error: Game with GameID " + gameToGuess.getGameID() + " is complete. Guesses are no longer accepted");
+            throw new InvalidGameException("Game with gameID " + gameToGuess.getGameID() + " is complete");
         } 
         int guessValue = guess.getValue();
+        if (guess.getValue() == 0) {
+            throw new InvalidGuessException("Please provide 'value' for guess");
+        }
         int answer = gameToGuess.getAnswer();
 
         guess.setResult(processResult(guessValue, answer));
@@ -115,13 +121,14 @@ public class BullsAndCowsService {
             gameToGuess.setStatus("FINISHED");
             gameDao.updateGame(gameToGuess);
         }
+        
         return guessDao.addGuess(guess);
     }
 
     public List<Guess> getGuessesForGame(int gameID) throws InvalidGameException {
         Game game = gameDao.getGameByID(gameID);
         if (game == null) {
-            throw new InvalidGameException("Error: No game exists with Game ID " + gameID);
+            throw new InvalidGameException("No game exists with gameID " + gameID);
         }
         return guessDao.getGuessesByGameID(gameID);
     }
@@ -129,7 +136,7 @@ public class BullsAndCowsService {
     public Game getGame(int gameID) throws InvalidGameException {
         Game game = gameDao.getGameByID(gameID);
         if (game == null) {
-            throw new InvalidGameException("Error: No game exists with Game ID " + gameID);
+            throw new InvalidGameException("No game exists with gameID " + gameID);
         }
         return game;
     }

@@ -1,11 +1,16 @@
 com\sg\ramimans\bullsandcowsrest\entity\Guess.class
 com\sg\ramimans\bullsandcowsrest\dao\GuessDaoDBImpl.class
+com\sg\ramimans\bullsandcowsrest\service\InvalidGameException.class
+com\sg\ramimans\bullsandcowsrest\entity\Err.class
 com\sg\ramimans\bullsandcowsrest\dao\GuessDao.class
+com\sg\ramimans\bullsandcowsrest\service\InvalidGuessException.class
 com\sg\ramimans\bullsandcowsrest\controller\BullsAndCowsController.class
 com\sg\ramimans\bullsandcowsrest\dao\GameDao.class
 com\sg\ramimans\bullsandcowsrest\entity\Game.class
 com\sg\ramimans\bullsandcowsrest\dao\GuessDaoDBImpl$GuessMapper.class
+com\sg\ramimans\bullsandcowsrest\service\BullsAndCowsService.class
 com\sg\ramimans\bullsandcowsrest\App.class
 com\sg\ramimans\bullsandcowsrest\dao\GuessDaoDBImpl$GuessIDMapper.class
 com\sg\ramimans\bullsandcowsrest\dao\GameDaoDBImpl$GameMapper.class
 com\sg\ramimans\bullsandcowsrest\dao\GameDaoDBImpl.class
+com\sg\ramimans\bullsandcowsrest\controller\ToDoControllerExceptionHandler.class

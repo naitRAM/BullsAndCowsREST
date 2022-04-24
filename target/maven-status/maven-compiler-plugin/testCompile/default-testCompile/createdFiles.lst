@@ -1,0 +1,5 @@
+com\sg\ramimans\bullsandcowsrest\service\BullsAndCowsServiceTest.class
+com\sg\ramimans\bullsandcowsrest\service\GuessDaoStubImpl.class
+com\sg\ramimans\bullsandcowsrest\dao\GameDaoDBImplTest.class
+com\sg\ramimans\bullsandcowsrest\dao\GuessDaoDBImplTest.class
+com\sg\ramimans\bullsandcowsrest\service\GameDaoStubImpl.class
