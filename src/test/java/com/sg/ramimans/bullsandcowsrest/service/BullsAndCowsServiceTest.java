@@ -57,6 +57,21 @@ public class BullsAndCowsServiceTest {
         guess = service.addGuess(guess);
         assertEquals(guess.getResult(), "e:4:p:0");
     }
+    
+    @Test 
+    public void testAddPartialGuess() throws InvalidGuessException, InvalidGameException {
+        
+    }
+    
+    @Test
+    public void testAddBadGuess() throws InvalidGuessException, InvalidGameException {
+        
+    }
+    
+    @Test
+    public void testInvalidGameException() throws InvalidGameException {
+        
+    }
 
 
     
